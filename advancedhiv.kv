@@ -1,0 +1,433 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+WindowManager:
+    Loading:
+    Login:
+    Register:
+    QuestionOne:
+    QuestionTwo:
+    QuestionThree:
+    QuestionFour:
+    QuestionFive:
+    QuestionSix:
+    QuestionSeven:
+    QuestionEight:
+    QuestionNine:
+    QuestionTen:
+    FinalScore:
+    SessionOne:
+    SessionTwo:
+    SessionThree:
+    SessionFour:
+    SessionFive:
+    SessionSix:
+    Contents:
+    Completed:
+
+<WindowManager>:
+    id: "pi"
+    transition: FadeTransition()
+
+<Loading>:
+    name: "loading"
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgb: 0.5, 0.1, 0.5
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: "Advanced HIV Disease App"
+            font_size: 32
+
+<Login>:
+    name: "login"
+    BoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgb: 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Image:
+            source: "head_image.png"
+        Label:
+            text: "UserName"
+            color: 0,0,0
+        TextInput:
+        Label:
+            text: "Password"
+            color: 0,0,0
+        TextInput:
+        Button:
+            text: "Confirm"
+            on_press: root.manager.current = "contents"
+        Label:
+            text: "Not Registered? Click Below"
+            color: 0, 0, 0
+        Button:
+            text: "Register"
+            on_press: root.manager.current = "register"
+
+<Register>:
+    name: "register"
+    BoxLayout:
+        orientation: "vertical"
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Name"
+            TextInput:
+                id: "name_input"
+                multiline: False
+            Label:
+                text: "Surname"
+            TextInput:
+                id: "surname_input"
+                multiline: False
+            Label:
+                text: "Designation"
+            TextInput:
+                id: "designation_input"
+                multiline: False
+            Label:
+                text: "District"
+            TextInput:
+                id: "district_input"
+                multiline: False
+            Label:
+                text: "Health Facility"
+            TextInput:
+                id: "facility_input"
+                multiline: False
+            Label:
+                text: "Email Address"
+            TextInput:
+                id: "email_input"
+                multiline: False
+            Label:
+                text: "Username"
+            TextInput:
+                id: "username_input"
+                multiline: False
+            Label:
+                text: "Password"
+            TextInput:
+                id: "password_input"
+                multiline: False
+        Button:
+            text: "Register"
+            size_hint_y: 0.15
+            on_press:
+                root.manager.current = "contents"
+
+
+<Contents>:
+    name: "contents"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Contents"
+            font_size: 32
+            size_hint_y: 0.25
+        MyRecycleView:
+            id: "recycler"
+            viewclass: 'SelectableButton'
+            data :
+                [{"text": "Pre-Test Quiz"},
+                {"text": "Session 1: Overview of AHD"},
+                {"text": "Session 2: Patient Clinical Monitoring & Laboratory Investigations"},
+                {"text": "Session 3: Approach to Management of AHD"},
+                {"text": "Session 4: Management of TB in AHD"},
+                {"text": "Session 5: Management of Cryptococcal Meningitis in AHD"},
+                {"text": "Session 6: Basics of a Neurological Examination"},
+                {"text": "Post_Test Quiz"}]
+
+            RecycleBoxLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+        Label:
+            text:"Progress"
+            size_hint_y: 0.10
+            font_size: 24
+        ProgressBar:
+            size_hint_y: 0.10
+
+<SelectableButton>:
+    on_press:
+        if self.data['text']=="Pre-Test Quiz": app.root.current = "One"
+        if self.data['text']=="Session 1: Overview of AHD": app.root.current = "session_one"
+        if self.data['text']=="Session 2: Patient Clinical Monitoring & Laboratory Investigations": app.root.current = "session_two"
+        if self.data['text']=="Session 3: Approach to Management of AHD": app.root.current = "session_three"
+        if self.data['text']=="Session 4: Management of TB in AHD": app.root.current = "session_four"
+        if self.data['text']=="Session 5: Management of Cryptococcal Meningitis in AHD": app.root.current = "session_five"
+        if self.data['text']=="Session 6: Basics of a Neurological Examination": app.root.current = "session_six"
+        if self.data['text']=="Post_Test Quiz": app.root.current = "One"
+
+<MyRecycleView>:
+
+
+<SessionOne@Screen>:
+    id: session_one
+    name: "session_one"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 1_Overview of Advanced HIV Disease"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_one
+            source: 'videos/AHD_Session 1_Overview of Advanced HIV Disease.mp4'
+            thumbnail: 'images/Session 1. Overview of Advanced HIV Disease in Zimbabwe_SLIDE.png'
+        SessionBoxLayout:
+
+<SessionTwo@Screen>:
+    name: "session_two"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 2_Patient Clinical Monitoring and Lab. Investigations"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_two
+            source: 'videos/AHD_Session 2_Patient Clinical Monitoring and Lab.mp4'
+            thumbnail: 'images/Session 2. Patient Clinical Monitoring and Lab Ix_revised.png'
+        SessionBoxLayout:
+
+<SessionThree@Screen>:
+    name: "session_three"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 3_Approach to Management of AHD"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_three
+            source: 'videos/Session 3. Approach to Management of Advanced HIV Disease.mp4'
+            thumbnail: 'images/Session 3. Approach to Management of Advanced HIV Disease.png'
+        SessionBoxLayout:
+
+<SessionFour@Screen>:
+    name: "session_four"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 4_Management of TB in AHD"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_four
+            source: 'videos/AHD_Session 4_Management of TB in AHD.mp4'
+            thumbnail: 'images/Session 4 Mx of Opportunistic infections in AHD - Tuberculosis.png'
+        SessionBoxLayout:
+
+<SessionFive@Screen>:
+    name: "session_five"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 5_Management of Cryptococcal Meningitis in AHD"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_five
+            source: 'videos/AHD_Session 5_ Cryptococcal Disease.mp4'
+            thumbnail: 'images/Session 5. Mx of Opportunistic infections in AHD - Cryptococcal Meningitis.png'
+        SessionBoxLayout:
+
+<SessionSix@Screen>:
+    name: "session_six"
+    BoxLayout:
+        orientation: "vertical"
+        SessionLabel:
+            text: "Session 6_Neurological Examination"  #<- this label does not adjust to the width of the window
+        SessionVideoPlayer:
+            id: vid_six
+            source: 'videos/AHD_6_Neurological Examination.mp4'
+            thumbnail: 'images/Session 6. Mx of Opportunistic infections in AHD - Neurological Examination.png'
+        SessionBoxLayout:
+
+<SessionVideoPlayer@VideoPlayer>:
+    size_hint_y: 0.9
+
+<SessionLabel@Label>:
+    size_hint_y: 0.1
+    font_size: 28
+
+<SessionBoxLayout@BoxLayout>:
+    orientation: "horizontal"
+    size_hint_y: 0.15
+    Button:
+        text: "Return Home"
+        on_press:
+            app.root.current = "contents"
+            app.root.get_screen("session_one").ids.vid_one.state= "stop"
+            app.root.get_screen("session_two").ids.vid_two.state= "stop"
+            app.root.get_screen("session_three").ids.vid_three.state= "stop"
+            app.root.get_screen("session_four").ids.vid_four.state= "stop"
+            app.root.get_screen("session_five").ids.vid_five.state= "stop"
+            app.root.get_screen("session_six").ids.vid_six.state= "stop"
+
+    Button:
+        text: "Proceed to Activity"
+
+<MyQuiz>:
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "vertical"
+            Label:
+                id: question
+                text: root.quiz[root.quiz_number]["Question"]
+                text_size: self.width, None
+                font_size: 48
+                padding: 50, 50
+            GridLayout:
+                cols:2
+                Label:
+                    text: "A"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["A"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "B"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["B"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "C"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["C"]
+                    text_size: self.width, None
+                    halign: "left"
+                Label:
+                    text: "D"
+                    size_hint_x: None
+                    width:50
+                Label:
+                    id: question
+                    text: root.quiz[root.quiz_number]["D"]
+                    text_size: self.width, None
+                    halign: "left"
+            GridLayout:
+                cols: 4
+                padding: 0.9, 0.9, 0.9, 0.9
+                size_hint_y: 0.15
+                Button:
+                    id: a_button
+                    text: "A"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score += 1 if root.quiz[root.quiz_number]["A"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        print(app.root.get_screen("final").score)
+                        app.root.current = root.next_question
+                Button:
+                    id: b_button
+                    text: "B"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["B"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        app.root.current = root.next_question
+                Button:
+                    id: c_button
+                    text: "C"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["C"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        print(app.root.get_screen("final").score)
+                        app.root.current = root.next_question
+                Button:
+                    id: d_button
+                    text: "D"
+                    font_size: 44
+                    on_press:
+                        app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["D"] == root.quiz[root.quiz_number]["Answer"] else 0
+                        app.root.current = root.next_question
+
+<FinalScore>:
+    id: final
+    name: "final"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "You Scored"
+            font_size: 50
+        Label:
+            id: score_label
+            text: str(root.score) +"/10"
+            font_size: 80
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.40
+            Button:
+                id: restart_button
+                text: "Proceed"
+                on_press:
+                    app.root.current = "session_one"
+            Button:
+                id: quit
+                text: "Quit"
+                on_press:
+                    app.stop()
+
+
+
+<QuestionOne@MyQuiz>:
+    quiz_number: 0
+    name: "One"
+    next_question: "Two"
+
+<QuestionTwo@MyQuiz>:
+    quiz_number: 1
+    name: "Two"
+    next_question: "Three"
+
+<QuestionThree@MyQuiz>:
+    quiz_number: 2
+    name: "Three"
+    next_question: "Four"
+
+<QuestionFour@MyQuiz>:
+    quiz_number: 3
+    name: "Four"
+    next_question: "Five"
+
+<QuestionFive@MyQuiz>:
+    quiz_number: 4
+    name: "Five"
+    next_question: "Six"
+
+<QuestionSix@MyQuiz>:
+    quiz_number: 5
+    name: "Six"
+    next_question: "Seven"
+
+<QuestionSeven@MyQuiz>:
+    quiz_number: 6
+    name: "Seven"
+    next_question: "Eight"
+
+<QuestionEight@MyQuiz>:
+    quiz_number: 7
+    name: "Eight"
+    next_question: "Nine"
+
+<QuestionNine@MyQuiz>:
+    quiz_number: 8
+    name: "Nine"
+    next_question: "Ten"
+
+<QuestionTen@MyQuiz>:
+    quiz_number: 9
+    name: "Ten"
+    next_question: "final"
