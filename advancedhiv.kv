@@ -1,4 +1,6 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Factory kivy.factory.Factory
+#:import Window kivy.core.window
 
 WindowManager:
     Loading:
@@ -22,7 +24,14 @@ WindowManager:
     SessionFive:
     SessionSix:
     Contents:
+    ActivityOne:
+    ActivityTwo:
+    ActivityThree:
+    ActivityFour:
+    ActivityFive:
+    ActivitySix:
     Completed:
+
 
 <WindowManager>:
     id: "pi"
@@ -182,8 +191,8 @@ WindowManager:
             text: "Session 1_Overview of Advanced HIV Disease"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_one
-            source: 'videos/AHD_Session 1_Overview of Advanced HIV Disease.mp4'
-            thumbnail: 'images/Session 1. Overview of Advanced HIV Disease in Zimbabwe_SLIDE.png'
+            source: 'AHD_Session 1_Overview of Advanced HIV Disease.mp4'
+            thumbnail: 'Session 1. Overview of Advanced HIV Disease in Zimbabwe_SLIDE.png'
         SessionBoxLayout:
 
 <SessionTwo@Screen>:
@@ -194,8 +203,8 @@ WindowManager:
             text: "Session 2_Patient Clinical Monitoring and Lab. Investigations"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_two
-            source: 'videos/AHD_Session 2_Patient Clinical Monitoring and Lab.mp4'
-            thumbnail: 'images/Session 2. Patient Clinical Monitoring and Lab Ix_revised.png'
+            source: 'AHD_Session 2_Patient Clinical Monitoring and Lab.mp4'
+            thumbnail: 'Session 2. Patient Clinical Monitoring and Lab Ix_revised.png'
         SessionBoxLayout:
 
 <SessionThree@Screen>:
@@ -206,8 +215,8 @@ WindowManager:
             text: "Session 3_Approach to Management of AHD"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_three
-            source: 'videos/Session 3. Approach to Management of Advanced HIV Disease.mp4'
-            thumbnail: 'images/Session 3. Approach to Management of Advanced HIV Disease.png'
+            source: 'Session 3. Approach to Management of Advanced HIV Disease.mp4'
+            thumbnail: 'Session 3. Approach to Management of Advanced HIV Disease.png'
         SessionBoxLayout:
 
 <SessionFour@Screen>:
@@ -218,8 +227,8 @@ WindowManager:
             text: "Session 4_Management of TB in AHD"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_four
-            source: 'videos/AHD_Session 4_Management of TB in AHD.mp4'
-            thumbnail: 'images/Session 4 Mx of Opportunistic infections in AHD - Tuberculosis.png'
+            source: 'AHD_Session 4_Management of TB in AHD.mp4'
+            thumbnail: 'Session 4 Mx of Opportunistic infections in AHD - Tuberculosis.png'
         SessionBoxLayout:
 
 <SessionFive@Screen>:
@@ -230,8 +239,8 @@ WindowManager:
             text: "Session 5_Management of Cryptococcal Meningitis in AHD"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_five
-            source: 'videos/AHD_Session 5_ Cryptococcal Disease.mp4'
-            thumbnail: 'images/Session 5. Mx of Opportunistic infections in AHD - Cryptococcal Meningitis.png'
+            source: 'AHD_Session 5_ Cryptococcal Disease.mp4'
+            thumbnail: 'Session 5. Mx of Opportunistic infections in AHD - Cryptococcal Meningitis.png'
         SessionBoxLayout:
 
 <SessionSix@Screen>:
@@ -242,8 +251,8 @@ WindowManager:
             text: "Session 6_Neurological Examination"  #<- this label does not adjust to the width of the window
         SessionVideoPlayer:
             id: vid_six
-            source: 'videos/AHD_6_Neurological Examination.mp4'
-            thumbnail: 'images/Session 6. Mx of Opportunistic infections in AHD - Neurological Examination.png'
+            source: 'AHD_6_Neurological Examination.mp4'
+            thumbnail: 'Session 6. Mx of Opportunistic infections in AHD - Neurological Examination.png'
         SessionBoxLayout:
 
 <SessionVideoPlayer@VideoPlayer>:
@@ -269,6 +278,13 @@ WindowManager:
 
     Button:
         text: "Proceed to Activity"
+        on_press:
+            if app.root.current =="session_one": app.root.current = "AOne"
+            if app.root.current =="session_two": app.root.current = "ATwo"
+            if app.root.current =="session_three": app.root.current = "AThree"
+            if app.root.current =="session_four": app.root.current = "AFour"
+            if app.root.current =="session_five": app.root.current = "AFive"
+            if app.root.current =="session_six": app.root.current = "ASix"
 
 <MyQuiz>:
     BoxLayout:
@@ -329,7 +345,6 @@ WindowManager:
                     font_size: 44
                     on_press:
                         app.root.get_screen("final").score += 1 if root.quiz[root.quiz_number]["A"] == root.quiz[root.quiz_number]["Answer"] else 0
-                        print(app.root.get_screen("final").score)
                         app.root.current = root.next_question
                 Button:
                     id: b_button
@@ -344,7 +359,6 @@ WindowManager:
                     font_size: 44
                     on_press:
                         app.root.get_screen("final").score+=1 if root.quiz[root.quiz_number]["C"] == root.quiz[root.quiz_number]["Answer"] else 0
-                        print(app.root.get_screen("final").score)
                         app.root.current = root.next_question
                 Button:
                     id: d_button
@@ -431,3 +445,687 @@ WindowManager:
     quiz_number: 9
     name: "Ten"
     next_question: "final"
+
+
+# Each activity is followed by its pop-ups for code readability
+# ACTIVITY ONE!!!!
+
+<ActivityOne>:
+    name: "AOne"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0, 0.8, 0.8, 0.5
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/myclinic2.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "C.J. is a 25 year old male who comes to your clinic and requests an HIV test which turns out to be positive. What is the next important investigation to offer?"
+                text_size: self.size
+                font_size: 34
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "Viral Load"
+                font_size: 24
+                on_release: Factory.MyPopUpVL().open()
+            Button:
+                text: "RPR"
+                font_size: 24
+                on_release: Factory.MyPopUpRPR().open()
+            Button:
+                text: "CD4+"
+                font_size: 24
+                on_release: Factory.MyPopUpCD().open()
+
+<MyPopUpVL@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "CJ is currently not eligible for VL. A viral load will be collected 3 - 6 months after ART Initiation. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpRPR@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "Whilst an RPR may be done, this is not the most important investigation. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpCD@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "A CD4 is important in determining whether C.J has Advanced HIV Disease. A CD4 of <200 means differentiated care should be provided to avoid complications associated with ART initiation in immunocompromised individuals"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "session_two"
+
+# ACTIVITY TWO!!!!
+<ActivityTwo>:
+    name: "ATwo"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0.6, 0.8, 0.8, 0.5
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/visitect.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "Lets continue with our case study from the previous session. You perform C.J's CD test using the VISITECT POC CD4 test. The result is as show. How do you interpret the result?"
+                text_size: self.size
+                font_size: 28
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "C.J has a CD4 count greater than 200cells/uL"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpGreater().open()
+            Button:
+                text: "C.J has a CD4 count less than 200cells/uL"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpLesser().open()
+            Button:
+                text: "This is an invalid result"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpInvalid().open()
+
+<MyPopUpGreater@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The CD4 would be greater than 200 if the Test line is darker than the 200 line. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpLesser@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The 200 line is darker than the Test line. This shows than C.J has Advanced HIV Disease"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "session_three"
+
+<MyPopUpInvalid@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity One"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "A result is invalid if either the Test or Control line are absent. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+# ACTIVITY THREE!!!!
+<ActivityThree>:
+    name: "AThree"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0.6, 0.5, 0.6, 0.5
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/candida.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "In the previous session, you had identified that C.J has Advanced HIV Disease. During examination, you discover that C.J has the lesions shown on the left. What would you do?"
+                text_size: self.size
+                font_size: 28
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "Treat C.J with an antifungal medication"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpFungal().open()
+            Button:
+                text: "Treat C.J with an antiviral medication"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpViral().open()
+            Button:
+                text: "Treat C.J with an broad spectrum antibiotic"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpBiotic().open()
+
+<MyPopUpFungal@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Three"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "This is likely candidiasis, which responds to Antifungal medications like Fluconazole. Be sure to rule out Oral Hairy Leukoplakia on white oral lesions"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "session_four"
+
+<MyPopUpViral@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Three"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "This in not a viral infection. Consider viral infections when you see vesicular lesions. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpBiotic@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Three"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "This is not a bacterial infection. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+# ACTIVITY FOUR!!!!
+<ActivityFour>:
+    name: "AFour"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0.0, 0.8, 0.8, 0.4
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/tblam.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "You conduct a TB Urine LAM Test due to C.J's low CD4 count. The result is as shown on the left. What is the next important step?"
+                text_size: self.size
+                font_size: 28
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "Treat C.J. for Tuberculosis"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpTreat().open()
+            Button:
+                text: "Repeat the Test"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpRepeat().open()
+            Button:
+                text: "Screen C.J for TPT eligibility"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpScreen().open()
+
+<MyPopUpTreat@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Four"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The result shown is invalid as the control line is missing. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpRepeat@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Four"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "This is an invalid result, because the control line is missing. This test should be repeated"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "session_five"
+
+<MyPopUpScreen@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Four"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The result is missing the control line. However, once TB has been excluded, C.J. should be initiated on TB Preventative Therapy"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+# ACTIVITY FIVE!!!!
+<ActivityFive>:
+    name: "AFive"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0.0, 0.8, 0.8, 0.4
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/crag.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "After conducting a CRAG Test, you obtain the result is as shown. How do you interpret this result?"
+                text_size: self.size
+                font_size: 28
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "Invalid Test Result"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpCragIn().open()
+            Button:
+                text: "Serum CRAG - NEGATIVE"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpCragNeg().open()
+            Button:
+                text: "Serum CRAG - POSITIVE"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpCragPos().open()
+
+<MyPopUpCragIn@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Five"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The control and test lines are both visible. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpCragNeg@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Five"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "The control and test lines are both visible. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpCragPos@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Five"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "Following this positive Serum CrAG result, C.J should undergo a CSF CrAG test to confirm active Cryptococcal disease"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "session_six"
+
+# ACTIVITY SIX!!!!
+<ActivitySix>:
+    name: "ASix"
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: 0.0, 0.8, 0.8, 0.4
+            Rectangle:
+                size: self.width, self.height
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            Image:
+                source: 'images/final.jpg'
+                size: self.texture_size
+                padding: (50, 50)
+            Label:
+                text: "You have diagnosed C.J. with Cryptococcal Meningitis. He is eager to start ART. What would you advise him?"
+                text_size: self.size
+                font_size: 28
+                valign: 'middle'
+                padding: (50, 50)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+            Button:
+                text: "He can start ART immediately"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpStart().open()
+            Button:
+                text: "He will have to delay ART for 4-6 weeks"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpDelayFour().open()
+            Button:
+                text: "He will have to delay ART for 2 weeks"
+                text_size: self.size
+                font_size: 20
+                valign: 'middle'
+                padding: (50, 50)
+                on_release: Factory.MyPopUpDelayTwo().open()
+
+<MyPopUpStart@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Six"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "Rapid ART initiation is not advised due to the risk of IRIS. Please Try Again"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()
+
+<MyPopUpDelayFour@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Six"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/correct.png'
+                size_hint_x: 0.3
+            Label:
+                text: "Cryptococcal Meningitis should be treated for 4 -6 weeks prior to ART initiation to reduce the risk of IRIS."
+                text_size: self.size
+                valign: 'middle'
+                font_size: 24
+        Button:
+            size_hint_y: 0.2
+            text: "Proceed to Next Session"
+            on_release:
+                root.dismiss()
+                app.root.current = "One"
+
+<MyPopUpDelayTwo@Popup>:
+    auto_dismiss: False
+    size_hint: 0.6, 0.5
+    pos_hint: {'x':0.2, 'top':0.9}
+    title: "Activity Six"
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            Image:
+                source:'images/wrong.png'
+                size_hint_x: 0.3
+            Label:
+                text: "A delay of 2 weeks is advised when a patient is initiated on Pre-Emptive treatment following a Negative CSF CRAG"
+                text_size: self.size
+                valign: 'middle'
+                font_size: 20
+        Button:
+            size_hint_y: 0.2
+            text: "Close"
+            on_release: root.dismiss()

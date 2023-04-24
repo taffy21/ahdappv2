@@ -59,7 +59,23 @@ class FinalScore(Screen):
 class Completed(Screen):
     pass
 
+class ActivityOne(Screen):
+    pass
 
+class ActivityTwo(Screen):
+    pass
+
+class ActivityThree(Screen):
+    pass
+
+class ActivityFour(Screen):
+    pass
+
+class ActivityFive(Screen):
+    pass
+
+class ActivitySix(Screen):
+    pass
 
 class AdvancedHIVApp(App):
     pass
